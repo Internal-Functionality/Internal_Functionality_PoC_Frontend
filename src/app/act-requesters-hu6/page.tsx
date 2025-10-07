@@ -1,8 +1,9 @@
+import FixerCard from "@/components/components-h6/FixerCard";
 
-export default function page (){
-    return(
-        <div className="bg-black text-amber-50 h-screen w-screen">
-            <h1>Demo actividad requesters hu6</h1>
-        </div>
-    )
+export default function page() {
+    return (
+    <div className="p-6">
+        <FixerCard />
+    </div>
+    );
 }
