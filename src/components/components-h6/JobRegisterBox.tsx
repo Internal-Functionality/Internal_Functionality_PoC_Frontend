@@ -14,7 +14,7 @@ export default function JobRegisterBox(){
                     </Link>
                 </li>
                 <li className="w-full">
-                    <Link href="" className="block bg-blue-100 p-5 border border-black w-full text-2xl rounded-b-xl">
+                    <Link href="" className="block bg-blue-100 p-5 border border-black w-full text-2xl rounded-b-xl shadow-md">
                     Instalación de programa                        
                     <p className="text-sm mt-3">Comentario de Juan Perez: No me gusto el trabajo, el sistema tiene
                     muchas fallas</p>
