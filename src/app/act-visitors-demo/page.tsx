@@ -1,13 +1,3 @@
-//import React from 'react'
-
-//export default function Page () {
-//  return (
-//    <div>
-//       <h1>Demo actividad visitors</h1>
-//    </div>
-//  )
-//}
-
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -24,7 +14,7 @@ export default function LoginPage() {
     sessionStorage.setItem("visitorId", visitorId);
 
     // Redirigir a la página principal del visitante
-    router.push("/act-visitors-demo");
+    router.push('/act-visitors-demo/home');
   };
 
   return (
