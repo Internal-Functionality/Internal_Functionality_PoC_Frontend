@@ -1,45 +1,50 @@
-'use client';
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import styles from './stylesLogin.module.css';
+'use client'
+import React from 'react'
+import { useRouter } from 'next/navigation'
+import styles from './stylesLogin.module.css'
 
 export default function LoginPage() {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleVisitorLogin = () => {
-    // Guardar el rol del usuario (solo para simular login)
-    localStorage.setItem('role', 'visitor');
+    // Generar un ID único para el visitante
+    const visitorId = crypto.randomUUID()
 
-    // Simular registro de telemetría (login)
-    console.log({
-      type: 'login',
+    // Guardar en localStorage
+    localStorage.setItem('visitorId', visitorId)
+
+    // Simular registro en telemetría (por ahora solo consola)
+    console.log('Visitor logged in:', {
+      visitorId,
       role: 'visitor',
+      type: 'session_start',
       timestamp: new Date().toISOString(),
-    });
+    })
 
-    // Redirigir a Home
-    router.push('/act-visitors-demo/home');
-  };
+    // Redirigir a la página principal del visitor
+    router.push('/act-visitors-demo/home')
+  }
 
   return (
-    <div className={styles.body}>
+    <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title_header}>SERVINEO</h1>
+        <h1>Servineo</h1>
       </div>
 
-      <div className={styles.containerLogin}>
-        <h1 className={styles.titleLogin}>Inicio de Sesión</h1>
+      <div className={styles.loginBox}>
+        <label className={styles.label}>Usuario:</label>
+        <input className={styles.input} type="text" placeholder="Usuario" />
 
-        <div style={{ marginTop: "20px" }}>
-          <input type="text" placeholder="Username" disabled style={{ margin: "5px" }} />
-          <br />
-          <input type="password" placeholder="Password" disabled style={{ margin: "5px" }} />
-          <br />
-          <button className={styles.btnVisitor} onClick={handleVisitorLogin}>
-            Entrar como Visitor
+        <label className={styles.label}>Contraseña:</label>
+        <input className={styles.input} type="password" placeholder="Contraseña" />
+
+        <div className={styles.buttonGroup}>
+          <button className={styles.visitorButton} onClick={handleVisitorLogin}>
+            Entrar como visitor
           </button>
+          <button className={styles.loginButton}>Login</button>
         </div>
       </div>
     </div>
-  );
+  )
 }

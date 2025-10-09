@@ -1,55 +1,117 @@
-'use client';
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import styles from './stylesHome.module.css';
+'use client'
+import React, { useState } from 'react'
+import styles from './stylesHome.module.css'
 
 export default function HomePage() {
-  const router = useRouter();
+  const [searchFixer, setSearchFixer] = useState('')
+  const [searchRequester, setSearchRequester] = useState('')
 
-  // Función para simular acciones de telemetría
-  const handleAction = (type: string, metadata: object = {}) => {
-    const role = localStorage.getItem('role') || 'visitor';
-    const event = {
+  // Simulación de registro de telemetría
+  const logTelemetry = (type: string, metadata = {}) => {
+    const visitorId = localStorage.getItem('visitorId') || 'unknown'
+    const data = {
+      userId: visitorId,
+      role: 'visitor',
       type,
-      role,
       metadata,
       timestamp: new Date().toISOString(),
-    };
-    console.log('Evento de telemetría:', event);
-  };
+    }
+    console.log('Telemetry Event:', data)
+  }
 
-  const handleLogout = () => {
-    localStorage.removeItem('role');
-    handleAction('session_end');
-    router.push('/act-visitors-demo');
-  };
+  const handleSearchFixer = () => {
+    logTelemetry('search', { searchTerm: searchFixer, section: 'fixer' })
+  }
+
+  const handleSearchRequester = () => {
+    logTelemetry('search', { searchTerm: searchRequester, section: 'requester' })
+  }
+
+  const handleClickFixer = () => {
+    logTelemetry('click', { button: 'Ver información del trabajo', section: 'fixer' })
+  }
+
+  const handleClickRequester = () => {
+    logTelemetry('click', { button: 'Ver fixer', section: 'requester' })
+  }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Bienvenido, Visitor 👋</h1>
-      <p>Explora los trabajos disponibles:</p>
+      <header className={styles.header}>
+        <h1>Servineo</h1>
+        <div className={styles.headerButtons}>
+          <button>Iniciar Sesión</button>
+          <button>Registrar</button>
+        </div>
+      </header>
 
-      <div className={styles.buttons}>
-        <button onClick={() => handleAction('search', { searchTerm: 'electricista' })}>
-          Buscar trabajos
-        </button>
+      {/* SECCIÓN FIXER */}
+      <section className={styles.section}>
+        <h2>Fixer:</h2>
+        <div className={styles.searchContainer}>
+          <label>SEARCH:</label>
+          <input
+            type="text"
+            value={searchFixer}
+            onChange={(e) => setSearchFixer(e.target.value)}
+            placeholder="Buscar trabajo..."
+          />
+          <button onClick={handleSearchFixer}>Buscar</button>
+        </div>
 
-        <button onClick={() => handleAction('click', { button: 'Ver detalles de trabajo' })}>
-          Simular Click
-        </button>
+        <div className={styles.card}>
+          <div className={styles.imagePlaceholder}>Imagen trabajo especial</div>
+        </div>
 
-        <button onClick={() => handleAction('review', { comment: 'Muy buen servicio' })}>
-          Dejar review
-        </button>
+        <div className={styles.jobCard}>
+          <div className={styles.imageBox}>Img</div>
+          <div className={styles.jobInfo}>
+            <p>Descripción</p>
+            <p>Lugar: ****</p>
+          </div>
+          <button onClick={handleClickFixer}>Ver información del trabajo</button>
+        </div>
 
-        <button onClick={() => handleAction('click', { button: 'Publicar trabajo' })}>
-          Publicar trabajo
-        </button>
-      </div>
+        <div className={styles.jobCard}>
+          <div className={styles.imageBox}>Img</div>
+          <div className={styles.jobInfo}>
+            <p>Descripción</p>
+            <p>Lugar: ****</p>
+          </div>
+          <button onClick={handleClickFixer}>Ver información del trabajo</button>
+        </div>
+      </section>
 
-      <button className={styles.logout} onClick={handleLogout}>
-        Cerrar sesión
-      </button>
+      {/* SECCIÓN REQUESTER */}
+      <section className={styles.section}>
+        <h2>Requester:</h2>
+        <div className={styles.searchContainer}>
+          <label>SEARCH:</label>
+          <input
+            type="text"
+            value={searchRequester}
+            onChange={(e) => setSearchRequester(e.target.value)}
+            placeholder="Buscar fixer..."
+          />
+          <button onClick={handleSearchRequester}>Buscar</button>
+        </div>
+
+        <div className={styles.jobCard}>
+          <div className={styles.imageBox}>Imagen: Fixer</div>
+          <div className={styles.jobInfo}>
+            <p>Descripción</p>
+            <button onClick={handleClickRequester}>Ver fixer</button>
+          </div>
+        </div>
+
+        <div className={styles.jobCard}>
+          <div className={styles.imageBox}>Imagen: Fixer</div>
+          <div className={styles.jobInfo}>
+            <p>Descripción</p>
+            <button onClick={handleClickRequester}>Ver fixer</button>
+          </div>
+        </div>
+      </section>
     </div>
-  );
+  )
 }
