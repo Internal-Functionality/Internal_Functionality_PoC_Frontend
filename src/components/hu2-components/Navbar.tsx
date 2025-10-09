@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import React, { useState } from 'react'
 import { CgProfile } from "react-icons/cg";
 import { IoHome } from "react-icons/io5";
@@ -19,12 +20,16 @@ export const NavBar = () => {
             <div className="flex flex-col justify-between h-screen">
                 {/* Contenedor superior */}
                 <div className="flex flex-col items-center justify-center flex-grow gap-10">
-                    <button className="cursor-pointer">
+                    <Link href="/i18n-hu2/home" className='block'>
+                    <button className="cursor-pointer" >
                         <IoHome size={70} className="m-4" />
                     </button>
+                    </Link>
+                    <Link href="/i18n-hu2" className='block'>
                     <button className="cursor-pointer">
                         <CgProfile size={70} className="m-4" />
                     </button>
+                    </Link>
                 </div>
 
                 {/* Botón de traducción */}
