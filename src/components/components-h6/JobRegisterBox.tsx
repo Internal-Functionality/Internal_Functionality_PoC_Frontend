@@ -1,26 +1,31 @@
-import Link from "next/link";
+"use client";
 
-export default function JobRegisterBox(){
+interface RegisteredJob {
+    titulo: string;
+    descripcion: string;
+}
+
+type JobRegisterBoxProps = {
+    onOpen: (job: RegisteredJob) => void;
+    jobs: RegisteredJob[];
+};
+export default function JobRegisterBox({ onOpen, jobs }: JobRegisterBoxProps){
     return (
-        <div className="max-w-2xl w-full text-2xl mt-5">
-            Trabajos Realizados:
-            <p className="text-sm mt-2 ml-1">Total 2 trabajos</p>
-            <ul className="text-sm text-left">
-                <li className="w-full mt-8">
-                    <Link href="" className="block bg-blue-100 p-5 border border-black rounded-t-xl w-full text-2xl">
-                        Reparacion PC
-                        <p className="text-sm mt-3">Comentario de Maria Lopez: Excelente trabajo, lo areglo de manera
-                        precisa y rapida</p>
-                    </Link>
-                </li>
-                <li className="w-full">
-                    <Link href="" className="block bg-blue-100 p-5 border border-black w-full text-2xl rounded-b-xl shadow-md">
-                    Instalación de programa                        
-                    <p className="text-sm mt-3">Comentario de Juan Perez: No me gusto el trabajo, el sistema tiene
-                    muchas fallas</p>
-                    </Link>
-                </li>
-            </ul>
+        <div className="min-w-xl w-full text-2xl mt-5">
+        Trabajos Realizados:
+        <p className="text-sm mt-2 ml-1">Total {jobs.length} trabajos</p>
+        <div className="mt-8">
+            <ul className="text-sm text-left ">
+            {jobs.map((job, index) => (
+            <li key={index} className="w-full mt-5">
+                <div onClick={() => onOpen(job)} className="cursor-pointer block bg-blue-100 rounded-xl shadow-md p-7   text-2xl hover:bg-blue-200 transition-colors" >
+                    {job.titulo}
+                <p className="text-sm ">{job.descripcion.slice(0, 40)}...</p>
+                </div>
+            </li>
+            ))}
+        </ul>
         </div>
+    </div>
     );
 }
