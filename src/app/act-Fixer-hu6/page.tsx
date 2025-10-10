@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
-import FixerCard from "@/components/components-h6/FixerCard";
+import FixerCardEditable from "@/components/components-h6/FixerCardEditable";
 import JobOffersBox from "@/components/components-h6/JobOffersBox";
 import JobRegisterBox from "@/components/components-h6/JobRegisterBox";
 import ModalRequester from "@/components/components-h6/ModalRequester";
 import RoleBottom from "@/components/components-h6/RoleBottom";
+import ModalView from "@/components/components-h6/ModalView";
+import ViewBottom from "@/components/components-h6/ViewBottom";
 
 interface OfferedJob {
     id: string;
@@ -16,6 +18,11 @@ interface RegisteredJob {
     titulo: string;
     descripcion: string;
 }
+interface View {
+    titulo: string;
+    descripcion: string;
+}
+
 const OfferedJobs: OfferedJob[] = [
     {
         titulo: "Reparacion de laptop HP",
@@ -50,9 +57,14 @@ const RegisteredJobs: RegisteredJob[] = [
         id: "T005",
     },
 ];
+const Views: View[] = [
+    { titulo: "Vistas en trabajos", descripcion: "Total:" },
+];
 export default function Page() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedJob, setSelectedJob] = useState<OfferedJob | null>(null);
+    const [isOpenView, setIsOpenView] = useState(false);
+    const [selectedView, setSelectedView] = useState<View | null>(null);
 
     const handleOpenModal = (job: OfferedJob) => {
         setSelectedJob(job);
@@ -62,35 +74,56 @@ export default function Page() {
         setSelectedJob(job);
         setIsOpen(true);
     };
+    const handleOpenModalViews = (views: View) => {
+        setSelectedView(views);
+        setIsOpenView(true);
+    };
     return (
     <>
         <div className="flex">
             <div className="max-w-2xl w-full p-6">
-                <FixerCard />
+                <FixerCardEditable />
             </div>
-        <div className="max-w-lg w-full mt-10 ml-15">
-            <RoleBottom />
+            <div className="max-w-lg w-full mt-10 ml-15">
+                <RoleBottom />
+            </div>
         </div>
+
+      {/* Botón de publicar */}
+        <div className="px-6">
+            <button className="cursor-pointer bg-blue-300 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded-lg shadow-md">
+            + Publicar Oferta de Trabajo
+            </button>
         </div>
 
         <div className="flex space-x-9">
-            <div className="max-w-2xl w-full p-6">
-                <JobOffersBox onOpen={handleOpenModal} jobs={OfferedJobs} />
-            </div>
-            <div className="max-w-2xl w-full p-6">
-                <JobRegisterBox onOpen={handleOpenModalR} jobs={RegisteredJobs}/>
-            </div>
-        <div className=" w-full">
-            {selectedJob && (
-            <ModalRequester
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-                titulo={selectedJob.titulo}
-                text={selectedJob.descripcion}
-            />
-            )}
-            
+        {/* Trabajos ofertados */}
+        <div className="max-w-2xl w-full p-6 ">
+            <JobOffersBox onOpen={handleOpenModal} jobs={OfferedJobs} />
         </div>
+
+        {/* Trabajos realizados */}
+        <div className="max-w-2xl w-full p-6 relative">
+            <JobRegisterBox onOpen={handleOpenModalR} jobs={RegisteredJobs} />
+            <ViewBottom onOpenView={handleOpenModalViews} views={Views} />
+        </div>
+
+        {/* Modal */}
+        {selectedJob && (
+            <ModalRequester
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            titulo={selectedJob.titulo}
+            text={selectedJob.descripcion} />
+        )}
+        {selectedView && (
+            <ModalView
+            isOpenView={isOpenView}
+            titulo={selectedView.titulo}
+            text={selectedView.descripcion}
+            onCloseView={() => setIsOpenView(false)}
+            />
+)}
         </div>
     </>
     );
