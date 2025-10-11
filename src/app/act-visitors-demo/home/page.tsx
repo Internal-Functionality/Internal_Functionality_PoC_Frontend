@@ -6,18 +6,32 @@ export default function HomePage() {
   const [searchFixer, setSearchFixer] = useState('')
   const [searchRequester, setSearchRequester] = useState('')
 
-  // Simulación de registro de telemetría
-  const logTelemetry = (type: string, metadata = {}) => {
-    const visitorId = localStorage.getItem('visitorId') || 'unknown'
+  const logTelemetry = async (type: string, metadata = {}) => {
+    const visitorId = localStorage.getItem('visitorId') || 'unknown';
     const data = {
       userId: visitorId,
       role: 'visitor',
       type,
       metadata,
       timestamp: new Date().toISOString(),
+    };
+
+    console.log('Telemetry Event:', data);
+
+    try {
+      const res = await fetch("http://localhost:3000/api/activity", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Error al registrar actividad");
+      console.log("Actividad registrada:", await res.json());
+    } catch (err) {
+      console.error("Error enviando actividad:", err);
     }
-    console.log('Telemetry Event:', data)
-  }
+  };
+
 
   const handleSearchFixer = () => {
     logTelemetry('search', { searchTerm: searchFixer, section: 'fixer' })

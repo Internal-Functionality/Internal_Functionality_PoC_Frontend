@@ -6,24 +6,34 @@ import styles from './stylesLogin.module.css'
 export default function LoginPage() {
   const router = useRouter()
 
-  const handleVisitorLogin = () => {
-    // Generar un ID único para el visitante
-    const visitorId = crypto.randomUUID()
+  const handleVisitorLogin = async () => {
+    const visitorId = crypto.randomUUID();
+    localStorage.setItem('visitorId', visitorId);
 
-    // Guardar en localStorage
-    localStorage.setItem('visitorId', visitorId)
-
-    // Simular registro en telemetría (por ahora solo consola)
-    console.log('Visitor logged in:', {
-      visitorId,
+    const eventData = {
+      userId: visitorId,
       role: 'visitor',
       type: 'session_start',
+      metadata: {},
       timestamp: new Date().toISOString(),
-    })
+    };
 
-    // Redirigir a la página principal del visitor
-    router.push('/act-visitors-demo/home')
-  }
+    try {
+      const res = await fetch("http://localhost:3000/api/activity", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(eventData),
+      });
+
+      if (!res.ok) throw new Error("Error al registrar visitor");
+      console.log("Visitor registrado en BD:", await res.json());
+    } catch (err) {
+      console.error("Error conectando al backend:", err);
+    }
+
+    router.push('/act-visitors-demo/home');
+  };
+
 
   return (
     <div className={styles.container}>
