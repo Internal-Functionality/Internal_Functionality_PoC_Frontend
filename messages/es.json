@@ -1,9 +1,5 @@
 {
-    "HomePage": {
-        "title": "Hola mundo"
-    },
-    "Card": {
-    "content": "Esta tarjeta grafica es muy buena",
-    "button":"Boton español"
-    }
+"menu": {
+    "title": "Funcionalidad Interna PoC"
+}
 }

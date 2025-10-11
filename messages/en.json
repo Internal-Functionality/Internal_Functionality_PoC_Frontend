@@ -1,9 +1,5 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
-  },
-  "Card": {
-    "content": "This graphic card is very good",
-    "button" : "button english"
+  "menu": {
+    "title": "Internal Functionality PoC"
   }
 }
