@@ -1,6 +1,7 @@
 "use client";
 
 interface RegisteredJob {
+    id: string;
     titulo: string;
     descripcion: string;
 }
