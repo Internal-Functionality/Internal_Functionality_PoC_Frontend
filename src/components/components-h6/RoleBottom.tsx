@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function RoleBottom() {
     const pathname = usePathname();
-    const isFixer = pathname === "/act-requester-hu6-Fixer";
+    const isFixer = pathname === "/act-Fixer-hu6";
     const isRequester = pathname === "/act-requesters-hu6";
 
     return (
@@ -18,7 +18,7 @@ export default function RoleBottom() {
                     ? "bg-blue-300 text-white"
                     : "hover:bg-blue-100 text-black"
                     }`}>
-                    <Link href="/act-requester-hu6-Fixer" className="block p-3 w-full"> Fixer </Link>
+                    <Link href="/act-Fixer-hu6" className="block p-3 w-full"> Fixer </Link>
                 </div>
 
             {/* Botón Requester */}

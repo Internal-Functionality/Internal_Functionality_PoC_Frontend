@@ -53,18 +53,29 @@ const RegisteredJobs: RegisteredJob[] = [
 export default function Page() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedJob, setSelectedJob] = useState<OfferedJob | null>(null);
-
-    const handleOpenModal = (job: OfferedJob) => {
-        setSelectedJob(job);
+    const persona = { id: "P001", nombre: "Usuario POC" };
+    async function registrarClick(jobId: string) {
+    const registro = { requesterId: persona.id, jobId, fecha: new Date().toISOString(), };
+    try {
+            const response = await fetch("/api/registro-click", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(registro),
+            });
+        if (!response.ok) throw new Error("Error al registrar clic");
+        console.log("Clic registrado correctamente");
+    } catch (error) {
+        console.error("Error:", error);
+    }
+    }
+    function handleOpen(job: OfferedJob) {
+        registrarClick(job.id); 
+        setSelectedJob(job); 
         setIsOpen(true);
-    };
-    const handleOpenModalR = (job: RegisteredJob) => {
-        setSelectedJob(job);
-        setIsOpen(true);
-    };
+    }
     return (
     <>
-        <div className="flex">
+        <div className="flex">  
             <div className="max-w-2xl w-full p-6">
                 <FixerCard />
             </div>
@@ -75,10 +86,10 @@ export default function Page() {
 
         <div className="flex space-x-9">
             <div className="max-w-2xl w-full p-6">
-                <JobOffersBox onOpen={handleOpenModal} jobs={OfferedJobs} />
+                <JobOffersBox onOpen={handleOpen} jobs={OfferedJobs} />
             </div>
             <div className="max-w-2xl w-full p-6">
-                <JobRegisterBox onOpen={handleOpenModalR} jobs={RegisteredJobs}/>
+                <JobRegisterBox onOpen={handleOpen} jobs={RegisteredJobs}/>
             </div>
         <div className=" w-full">
             {selectedJob && (
