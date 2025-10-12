@@ -1,5 +1,11 @@
 {
   "menu": {
-    "title": "Internal Functionality PoC"
+    "title": "Internal Functionality PoC",
+    "button1": "i18n - Automatic detection of browser language",
+    "button2": "i18n - Manual language change",
+    "button3": "Register visitors activity",
+    "button4": "Register Requester activity - Record work reviews",
+    "button5": "Register fixers activity",
+    "button6": "Register Requester activity - Record service searches"
   }
 }
