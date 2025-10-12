@@ -47,7 +47,7 @@ const mockFixers: Fixer[] = [
   },
 ];
 
-function App() {
+export default function App() {
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<Fixer[]>([]);
 
@@ -85,7 +85,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" suppressHydrationWarning>
       {/* Header */}
       <header className="bg-white border-b border-gray-200 px-8 py-4">
         <div className="flex items-center justify-between">
@@ -119,5 +119,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
