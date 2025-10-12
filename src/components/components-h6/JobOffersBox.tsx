@@ -1,6 +1,7 @@
 "use client";
 
 interface OfferedJob {
+    id: string;
     titulo: string;
     descripcion: string;
 }

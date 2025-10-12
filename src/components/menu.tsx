@@ -1,11 +1,12 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-
 export function Menu (){
+    let t = useTranslations("menu");
     return(
         <div>
         <div className="bg-blue-950 flex justify-center  text-white">
         <menu className="p-10 ">
-            <h1 className="font-black m-30 text-6xl">Internal Functionalities DEMO</h1>
+            <h1 className="font-black m-30 text-6xl">{t("title")}</h1>
             <ul className=" text-3xl text-center ">
             <li className="border p-3 m-10"><Link href="/i18n-hu1" className="block border p-10 bg-blue-900">i18n-Deteccion automatica del idioma del navegador</Link></li>
             <li className="border p-3 m-10"><Link href="/i18n-hu2" className="block border p-10 bg-blue-900">i18n-Cambio de idioma manualmente</Link></li>
