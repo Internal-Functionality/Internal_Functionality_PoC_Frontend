@@ -4,34 +4,31 @@ import { useRouter } from 'next/navigation'
 import styles from './stylesLogin.module.css'
 
 export default function LoginPage() {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleVisitorLogin = async () => {
-    const visitorId = crypto.randomUUID();
-    localStorage.setItem('visitorId', visitorId);
-
-    const eventData = {
-      userId: visitorId,
-      role: 'visitor',
-      type: 'session_start',
-      metadata: {},
-      timestamp: new Date().toISOString(),
-    };
-
     try {
-      const res = await fetch("http://localhost:3000/api/activity", {
+      const res = await fetch("http://localhost:3000/api/visitor/visitor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(eventData),
+        body: JSON.stringify({ language: "es" }),
       });
 
       if (!res.ok) throw new Error("Error al registrar visitor");
-      console.log("Visitor registrado en BD:", await res.json());
+
+      const data = await res.json();
+      console.log("Visitor registrado:", data);
+
+      // Guarda el ID devuelto por el backend (MongoDB)
+      localStorage.setItem("visitorId", data.userId);
+
+      // ✅ Redirige solo si se registró correctamente
+      router.push("/act-visitors-demo/home");
+
     } catch (err) {
       console.error("Error conectando al backend:", err);
+      alert("❌ No se pudo registrar el visitante. Verifica la conexión con el backend.");
     }
-
-    router.push('/act-visitors-demo/home');
   };
 
 
