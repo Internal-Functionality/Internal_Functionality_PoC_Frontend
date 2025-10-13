@@ -1,5 +1,6 @@
 {
-"menu": {
+"menu": 
+{
     "title": "Funcionalidad Interna PoC", 
     "button1": "i18n-Detección automática del idioma del navegador",
     "button2": "i18n-Cambio de idioma manualmente",
@@ -7,5 +8,33 @@
     "button4": "Registro de actividad de Requesters - Registrar revisiones de trabajo",
     "button5": "Registro de actividad de fixers",
     "button6": "Registro de actividad de Requesters - Registrar búsqueda de servicios"
-}
+  },
+  "home": 
+  {
+    "recentReviews": "Reseñas recientes"
+  },
+   "reviewList": [
+    {
+      "name": "Pedro Perez",
+      "service": "Plomería",
+      "review": "Excelente servicio, muy satisfecho con el trabajo"
+    },
+    {
+      "name": "Adriana Montaño",
+      "service": "Cerrajería",
+      "review": "Muy buen servicio, rápido y eficiente."
+    },
+    {
+      "name": "Cristofer Vera",
+      "service": "Cerrajería",
+      "review": "No satisfecho con el servicio, tardó demasiado en llegar."
+    }
+  ],
+  "profile": 
+  {
+    "title": "Perfil",
+    "name": "Pedro Perez",
+    "job": "Plomero - Cerrajero",
+    "description": "Soy un técnico especialista con años de experiencia ofreciendo soluciones integrales a los problemas de su hogar o negocio, cubriendo de manera profesional y eficiente tanto la Fontanería (reparaciones de fugas, desatascos e instalaciones sanitarias) como la Cerrajería (aperturas de emergencia, cambios de cerraduras y seguridad de accesos); mi compromiso es garantizar su tranquilidad con un servicio rápido, honesto y de alta calidad, disponible para resolver sus emergencias."
+  }
 }
