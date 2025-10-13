@@ -22,7 +22,7 @@ export default function LoginPage() {
       // Guarda el ID devuelto por el backend (MongoDB)
       localStorage.setItem("visitorId", data.userId);
 
-      // ✅ Redirige solo si se registró correctamente
+      // Redirige solo si se registró correctamente
       router.push("/act-visitors-demo/home");
 
     } catch (err) {
