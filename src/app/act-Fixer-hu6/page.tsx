@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FixerCardEditable from "@/components/components-h6/FixerCardEditable";
 import JobOffersBox from "@/components/components-h6/JobOffersBox";
 import JobRegisterBox from "@/components/components-h6/JobRegisterBox";
@@ -14,63 +14,168 @@ interface OfferedJob {
     descripcion: string;
 }
 interface RegisteredJob {
-    id: string;
-    titulo: string;
-    descripcion: string;
+    _id: string;
+    title: string;
+    description: string;
+    status: string;
+    requesterId: string;
+    fixerId: string;
+    price: number;
+}
+
+interface Activity {
+    _id: string;
+    userId: string;
+    date: string;
+    role: string;
+    type: string;
+    metadata: {
+        button?: string;
+        jobTitle?: string;
+        jobId?: string;
+        [key: string]: any;
+    };
+    timestamp: string;
 }
 interface View {
     titulo: string;
     descripcion: string;
 }
-
-const OfferedJobs: OfferedJob[] = [
-    {
-        titulo: "Reparacion de laptop HP",
-        descripcion:
-        "Me especializo en la reparación y reemplazo de pantallas dañadas en laptops de diferentes marcas y modelos. Cuando una pantalla se rompe, los síntomas más comunes que encuentro son rajaduras visibles, manchas negras, pérdida de colores, líneas horizontales o verticales, parpadeos constantes o pantalla en blanco.",
-        id: "T001",
-    },
-    {
-        titulo: "Instalacion de software contable",
-        descripcion:
-        "Realizo instalación y configuración de sistemas contables como QuickBooks y Contasis. Aseguro conectividad en red local y respaldo de bases de datos para evitar pérdidas de información.",
-        id: "T002",
-    },
-    {
-        titulo: "Instalacion de Office",
-        descripcion:
-        "Instalo y activo Microsoft Office en su versión más reciente, incluyendo personalización de licencias, plantillas y configuración de cuentas Outlook.",
-        id: "T003",
-    },
-];
-const RegisteredJobs: RegisteredJob[] = [
-    {
-        titulo: "Reparacion PC",
-        descripcion:
-        "Comentario de Maria Lopez: Excelente trabajo, lo areglo de manera precisa y rapida",
-        id: "T004",
-    },
-    {
-        titulo: "Instalacion de programa",
-        descripcion:
-        "Comentario de Juan Perez: No me gusto el trabajo, el sistema tiene muchas fallas",
-        id: "T005",
-    },
-];
-const Views: View[] = [
-    { titulo: "Vistas en trabajos", descripcion: "Total:" },
-];
 export default function Page() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedJob, setSelectedJob] = useState<OfferedJob | null>(null);
     const [isOpenView, setIsOpenView] = useState(false);
     const [selectedView, setSelectedView] = useState<View | null>(null);
+    const [offeredJobs, setOfferedJobs] = useState<OfferedJob[]>([]);
+    const [completedJobs, setCompletedJobs] = useState<OfferedJob[]>([]);
+    const [registeredJobs, setRegisteredJobs] = useState<Activity[]>([]);
+    const persona = { id: "507f1f77bcf86cd799439011", nombre: "Usuario POC" };
+
+    // Función para obtener trabajos ofertados (pending) desde la BD
+    async function fetchOfferedJobs() {
+        try {
+            const response = await fetch("http://localhost:3001/api/telemetry/JobsReviews");
+            if (!response.ok) throw new Error("Error al obtener trabajos ofertados");
+            const data = await response.json();
+            
+            // Filtrar solo trabajos pending y convertir a formato OfferedJob
+            const offeredJobsData = data
+                .filter((job: RegisteredJob) => job.status === "pending")
+                .map((job: RegisteredJob) => ({
+                    id: job._id,
+                    titulo: job.title,
+                    descripcion: job.description
+                }));
+            setOfferedJobs(offeredJobsData);
+        } catch (error) {
+            console.error("Error al obtener trabajos ofertados:", error);
+            setOfferedJobs([]);
+        }
+    }
+
+    // Función para obtener trabajos completados desde la BD
+    async function fetchCompletedJobs() {
+        try {
+            const response = await fetch("http://localhost:3001/api/telemetry/JobsReviews");
+            if (!response.ok) throw new Error("Error al obtener trabajos completados");
+            const data = await response.json();
+            
+            // Filtrar solo trabajos completed y convertir a formato OfferedJob
+            const completedJobsData = data
+                .filter((job: RegisteredJob) => job.status === "completed")
+                .map((job: RegisteredJob) => ({
+                    id: job._id,
+                    titulo: job.title,
+                    descripcion: job.description
+                }));
+            setCompletedJobs(completedJobsData);
+        } catch (error) {
+            console.error("Error al obtener trabajos completados:", error);
+            setCompletedJobs([]);
+        }
+    }
+
+    // Función para obtener actividades ya registradas por el usuario desde la BD
+    async function fetchRegisteredJobs() {
+        try {
+            const response = await fetch("http://localhost:3001/api/telemetry/ActivityReviews");
+            if (!response.ok) throw new Error("Error al obtener actividades registradas");
+            const data = await response.json();
+            
+            // Filtrar solo las actividades del usuario actual con tipo "click"
+            const userActivities = data.filter((activity: Activity) => 
+                activity.userId === persona.id && 
+                activity.type === "click" &&
+                activity.metadata?.jobTitle
+            );
+            setRegisteredJobs(userActivities);
+        } catch (error) {
+            console.error("Error al obtener actividades registradas:", error);
+            setRegisteredJobs([]);
+        }
+    }
+
+    // Función para verificar si un trabajo ya está registrado por el usuario
+    function isJobAlreadyRegistered(jobTitle: string): boolean {
+        return registeredJobs.some(activity => 
+            activity.userId === persona.id && 
+            activity.metadata?.jobTitle?.toLowerCase().trim() === jobTitle.toLowerCase().trim()
+        );
+    }
+
+    // Efecto para cargar todos los trabajos al montar el componente
+    useEffect(() => {
+        fetchOfferedJobs();
+        fetchCompletedJobs();
+        fetchRegisteredJobs();
+    }, []);
+
+    // Función para registrar clic en activities
+    async function registrarClick(jobId: string, jobTitle: string, buttonType: string) {
+        // Verificar si el trabajo ya está registrado por este usuario
+        if (isJobAlreadyRegistered(jobTitle)) {
+            console.log(`El trabajo "${jobTitle}" ya está registrado por este usuario`);
+            return;
+        }
+
+        const activityData = {
+            userId: persona.id,
+            date: new Date().toISOString(),
+            role: "fixer",
+            type: "click",
+            metadata: {
+                button: buttonType,
+                jobTitle: jobTitle,
+                jobId: jobId
+            },
+            timestamp: new Date().toISOString()
+        };
+        
+        try {
+            const response = await fetch("http://localhost:3001/api/telemetry/ActivityReviews", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(activityData),
+            });
+            const result = await response.json();
+            console.log("Respuesta del backend (fixer):", result);
+            if (!response.ok) throw new Error("Error al registrar clic");
+            console.log("Clic registrado correctamente en activities");
+            
+            // Actualizar la lista de trabajos registrados después de registrar uno nuevo
+            await fetchRegisteredJobs();
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
 
     const handleOpenModal = (job: OfferedJob) => {
+        registrarClick(job.id, job.titulo, "job_offer");
         setSelectedJob(job);
         setIsOpen(true);
     };
-    const handleOpenModalR = (job: RegisteredJob) => {
+    const handleOpenModalR = (job: OfferedJob) => {
+        registrarClick(job.id, job.titulo, "completed_job");
         setSelectedJob(job);
         setIsOpen(true);
     };
@@ -99,13 +204,13 @@ export default function Page() {
         <div className="flex space-x-9">
         {/* Trabajos ofertados */}
         <div className="max-w-2xl w-full p-6 ">
-            <JobOffersBox onOpen={handleOpenModal} jobs={OfferedJobs} />
+            <JobOffersBox onOpen={handleOpenModal} jobs={offeredJobs} />
         </div>
 
         {/* Trabajos realizados */}
         <div className="max-w-2xl w-full p-6 relative">
-            <JobRegisterBox onOpen={handleOpenModalR} jobs={RegisteredJobs} />
-            <ViewBottom onOpenView={handleOpenModalViews} views={Views} />
+            <JobRegisterBox onOpen={handleOpenModalR} jobs={completedJobs} />
+            <ViewBottom onOpenView={handleOpenModalViews} views={[{ titulo: "Vistas en trabajos", descripcion: `Total: ${completedJobs.length}` }]} />
         </div>
 
         {/* Modal */}

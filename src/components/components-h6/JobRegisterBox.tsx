@@ -21,7 +21,7 @@ export default function JobRegisterBox({ onOpen, jobs }: JobRegisterBoxProps){
             <li key={index} className="w-full mt-5">
                 <div onClick={() => onOpen(job)} className="cursor-pointer block bg-blue-100 rounded-xl shadow-md p-7   text-2xl hover:bg-blue-200 transition-colors" >
                     {job.titulo}
-                <p className="text-sm ">{job.descripcion.slice(0, 40)}...</p>
+                <p className="text-sm ">{job.descripcion ? job.descripcion.slice(0, 40) + "..." : "Sin descripción"}</p>
                 </div>
             </li>
             ))}
