@@ -27,4 +27,3 @@ export const StarRaiting = ({ rating }: Props) => {
     </div>
     );
 };
-

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Booking } from '@/app/act-fixers-demo/page';
+import { Booking } from '@/app/[locale]/act-fixers-demo/page';
 
 interface AppointmentsListProps {
   appointments: Booking[];
