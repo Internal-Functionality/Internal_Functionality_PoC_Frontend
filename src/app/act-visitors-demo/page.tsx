@@ -8,7 +8,7 @@ export default function LoginPage() {
 
   const handleVisitorLogin = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/visitor/visitor", {
+      const res = await fetch("http://localhost:3000/api/visitor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ language: "es" }),

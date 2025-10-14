@@ -1,5 +1,6 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { setupSessionEndLogging } from './utils/sessionActivity' // ajusta la ruta según tu proyecto
 import styles from './stylesHome.module.css'
 
 export default function HomePage() {
@@ -31,6 +32,17 @@ export default function HomePage() {
       console.error("Error enviando actividad:", err);
     }
   };
+
+useEffect(() => {
+  const visitorId = localStorage.getItem('visitorId');
+  if (visitorId) {
+    const cleanup = setupSessionEndLogging(visitorId, "http://localhost:3000");
+    console.log("✅ Session logging activo para visitor:", visitorId);
+    return () => cleanup();
+  } else {
+    console.warn("⚠️ No se encontró visitorId en localStorage");
+  }
+}, []);
 
 
   const handleSearchFixer = () => {
