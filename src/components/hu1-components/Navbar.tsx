@@ -20,12 +20,12 @@ export const NavBar = () => {
             <div className="flex flex-col justify-between h-screen">
                 {/* Contenedor superior */}
                 <div className="flex flex-col items-center justify-center flex-grow gap-10">
-                    <Link href="/i18n-hu2/home" className='block'>
+                    <Link href="/i18n-hu1/home" className='block'>
                     <button className="cursor-pointer" >
                         <IoHome size={70} className="m-4" />
                     </button>
                     </Link>
-                    <Link href="/i18n-hu2" className='block'>
+                    <Link href="/i18n-hu1" className='block'>
                     <button className="cursor-pointer">
                         <CgProfile size={70} className="m-4" />
                     </button>
@@ -55,7 +55,7 @@ export const NavBar = () => {
                                     onClick={() => handleLanguageChange('en')}
                                     className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md"
                                 >
-                                    🇬🇧 English
+                                    🇪🇸 English
                                 </button>
                             </div>
                         )}
