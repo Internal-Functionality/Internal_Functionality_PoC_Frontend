@@ -1,9 +1,10 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { TranslationButton } from "./hu2-components/TranslationButton";
 export function Menu (){
     let t = useTranslations("menu");
     return(
-        <div>
+    <div>
         <div className="bg-blue-950 flex justify-center  text-white">
         <menu className="p-10 ">
             <h1 className="font-black m-30 text-6xl">{t("title")}</h1>
@@ -16,6 +17,9 @@ export function Menu (){
             <li className="border p-3 m-10"><Link href="/act-requesters-hu4" className="block border p-10 bg-blue-900">{t("button6")}</Link></li>
             </ul>
         </menu>
+        </div>
+        <div className="fixed bottom-6 left-6 z-50 text-white">
+            <TranslationButton/>
         </div>
     </div>
     )

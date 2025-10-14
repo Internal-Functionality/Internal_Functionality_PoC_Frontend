@@ -1,4 +1,5 @@
 // src/app/[locale]/layout.tsx
+import { TranslationButton } from '@/components/hu2-components/TranslationButton';
 import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import React from 'react';

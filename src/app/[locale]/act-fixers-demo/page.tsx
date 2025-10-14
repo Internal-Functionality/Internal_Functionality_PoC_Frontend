@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import Header from '@/components/components-h5/Header';
 import RequestsList from '@/components/components-h5/RequestList';
 import Calendar from '@/components/components-h5/Calendar';
@@ -21,29 +21,65 @@ const initialBookings: Booking[] = [
 ];
 
 export default function DashboardPage() {
-  const [bookings, setBookings] = useState<Booking[]>(initialBookings);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  useEffect(() => {
+    const fetchActivityData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/fixer-activity');
+        const data = await response.json();
 
+        if (data && data.requests && data.appointments) {
+          const allBookings = [...data.requests, ...data.appointments]; 
+          setBookings(allBookings); 
+        }
+        
+      } catch (error) {
+        console.error("Error al conectar con el backend:", error);
+      }
+    };
 
-  const handleAccept = (bookingId: string) => {
-    setBookings(currentBookings =>
-      currentBookings.map(booking =>
-        booking._id === bookingId ? { ...booking, status: 'confirmed' } : booking
-      )
-    );
-  };
-
-  const handleCancel = (bookingId: string) => {
-    setBookings(currentBookings =>
-      currentBookings.map(booking =>
-        booking._id === bookingId ? { ...booking, status: 'cancelled' } : booking
-      )
-    );
-  };
+    fetchActivityData();
+  }, []);
 
   
+
+  const handleAccept = async (bookingId: string) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/fixer-activity/${bookingId}/accept`, {
+        method: 'PATCH', 
+      });
+      const updatedBooking: Booking = await response.json();
+
+      setBookings(currentBookings =>
+        currentBookings.map(booking =>
+          booking._id === updatedBooking._id ? updatedBooking : booking
+        )
+      );
+    } catch (error) {
+      console.error("Error al aceptar la solicitud:", error);
+    }
+  };
+
+  const handleCancel = async (bookingId: string) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/fixer-activity/${bookingId}/cancel`, {
+        method: 'PATCH',
+      });
+      const updatedBooking: Booking = await response.json();
+
+      setBookings(currentBookings =>
+        currentBookings.map(booking =>
+          booking._id === updatedBooking._id ? updatedBooking : booking
+        )
+      );
+    } catch (error) {
+      console.error("Error al cancelar la cita:", error);
+    }
+  };
+
   const pendingRequests = bookings.filter(b => b.status === 'pending');
   const confirmedAppointments = bookings.filter(b => b.status === 'confirmed');
-
+  
   return (
     <main className="bg-slate-100 min-h-screen p-6 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
