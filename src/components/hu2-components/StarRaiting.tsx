@@ -12,7 +12,7 @@ export const StarRaiting = ({ rating }: Props) => {
             key={star}
             xmlns="http://www.w3.org/2000/svg"
             className={`w-8 h-8 ${star <= rating ? 'text-purple-500' : 'text-purple-500'} `}
-            viewBox="0 0 24 24"
+            viewBox="0 0 40 40"
             fill={star <= rating ? 'currentColor' : 'none'}
             stroke="currentColor"
         >

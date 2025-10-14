@@ -1,6 +1,6 @@
 import React from 'react'
-import { ReviewCard } from './ReviewCard'
-import { Interface } from 'readline'
+import { useTranslations } from "next-intl";
+import { ReviewCard } from './ReviewCard';
 
 interface ReviewProps{
     name: string;
@@ -9,37 +9,38 @@ interface ReviewProps{
     rating: number;
 }
 
-const Reviews:ReviewProps[] = [
+export const ReviewList = () => {
+    const t = useTranslations("reviewList");
+    const Reviews: ReviewProps[] = [
     {
         name: "Pedro Perez",
-        service: "Plomeria",
-        review: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi sit culpa maxime, ex fuga, ratione amet suscipit iste obcaecati debitis velit nam beatae commodi odit eius alias eum quia animi!",
+        service: t("0.service"),
+        review: t("0.review"),
         rating: 4
     },
     {
         name: "Adriana Montaño",
-        service: "Cerrajeria",
-        review: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi sit culpa maxime, ex fuga, ratione amet suscipit iste obcaecati debitis velit nam beatae commodi odit eius alias eum quia animi!",
+        service: t("1.service"),
+        review: t("1.review"),
         rating: 5
     },
     {
-        name: "Crhistofer Vera",
-        service: "Cerrajeria",
-        review: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi sit culpa maxime, ex fuga, ratione amet suscipit iste obcaecati debitis velit nam beatae commodi odit eius alias eum quia animi!",
+        name: "Cristofer Vera",
+        service: t("2.service"),
+        review: t("2.review"),
         rating: 2
     }
-]
+];
 
-export const ReviewList = () => {
     return (
         <div className='flex flex-col gap-0 bg-gray-100 w-full  mx-auto p-5 rounded  '>
             {Reviews.map((review:ReviewProps)=><ReviewCard 
-        key={review.name}
-        name={review.name}
-        service={review.service}
-        review={review.review}
-        rating={review.rating}
-        />)}
+                key={review.name}
+                name={review.name}
+                service={review.service}
+                review={review.review}
+                rating={review.rating}
+            />)}
         </div>
     )
 }
