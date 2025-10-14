@@ -20,7 +20,7 @@ export const NavBar = () => {
             <div className="flex flex-col justify-between h-screen">
                 {/* Contenedor superior */}
                 <div className="flex flex-col items-center justify-center flex-grow gap-10">
-                    <Link href="/i18n-hu1/home" className='block'>
+                    <Link href="" className='block'>
                     <button className="cursor-pointer" >
                         <IoHome size={70} className="m-4" />
                     </button>
