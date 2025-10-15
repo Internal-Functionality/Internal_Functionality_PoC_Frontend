@@ -1,9 +1,8 @@
 import React from 'react'
-import { Profile } from './Profile'
-import { ReviewList } from './ReviewList'
+import { useTranslations } from "next-intl";
 import { FaCircleArrowRight } from "react-icons/fa6";
-import { useTranslations } from 'next-intl';
-
+import { Profile } from './Profile';
+import { ReviewList } from './ReviewList';
 
 export const MainLayout = () => {
   const t = useTranslations("home");
@@ -17,4 +16,3 @@ export const MainLayout = () => {
     </div>
   );
 }
-

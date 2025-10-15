@@ -1,0 +1,40 @@
+{
+  "menu": 
+  {
+    "title": "Internal Functionality PoC",
+    "button1": "i18n - Automatic detection of browser language",
+    "button2": "i18n - Manual language change",
+    "button3": "Register visitors activity",
+    "button4": "Register Requester activity - Record work reviews",
+    "button5": "Register fixers activity",
+    "button6": "Register Requester activity - Record service searches"
+  },
+  "home": 
+  {
+    "recentReviews": "Recent Reviews"
+  },
+  "reviewList": [
+    {
+      "name": "Pedro Perez",
+      "service": "Plumbing",
+      "review": "Excellent service, very happy with the work"
+    },
+    {
+      "name": "Adriana Montaño",
+      "service": "Locksmithing",
+      "review": "Very good service, fast and efficient."
+    },
+    {
+      "name": "Cristofer Vera",
+      "service": "Locksmithing",
+      "review": "Not satisfied with the service, took too long to arrive."
+    }
+  ],
+  "profile": 
+  {
+    "title": "Profile",
+    "name": "Pedro Perez",
+    "job": "Plumber - Locksmith",
+    "description": "I am a specialist technician with years of experience offering comprehensive solutions to your home or business problems, professionally and efficiently covering both Plumbing (leak repairs, unclogging, and sanitary installations) and Locksmithing (emergency openings, lock changes, and access security); my commitment is to guarantee your peace of mind with a fast, honest, and high-quality service, available to resolve your emergencies."
+  }
+}

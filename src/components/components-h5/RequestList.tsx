@@ -1,5 +1,5 @@
 import React from 'react';
-import { Booking } from '@/app/act-fixers-demo/page';
+import { Booking } from '@/app/[locale]/act-fixers-demo/page';
 
 interface RequestsListProps {
   requests: Booking[];
@@ -13,7 +13,7 @@ const RequestsList: React.FC<RequestsListProps> = ({ requests, onAccept }) => {
       <div className="space-y-4">
         {requests.map((request) => (
           <div
-            key={request._id}
+            key={request._id} 
             className="bg-white p-4 rounded-lg shadow-sm flex justify-between items-center"
           >
             <div>
