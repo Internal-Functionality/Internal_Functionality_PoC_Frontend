@@ -1,7 +1,7 @@
 // utils/sessionActivity.ts
 let __sessionAlreadyLogged = false; // 🧠 variable global compartida
 
-export function setupSessionEndLogging(userId: string, backendBase = "http://localhost:3000") {
+export function setupSessionEndLogging(userId: string, backendBase = "http://localhost:3001") {
   const endpoint = `${backendBase}/api/activity`;
 
   const logSessionEnd = () => {

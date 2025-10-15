@@ -20,7 +20,7 @@ export default function HomePage() {
     console.log('Telemetry Event:', data);
 
     try {
-      const res = await fetch("http://localhost:3000/api/activity", {
+      const res = await fetch("http://localhost:3001/api/activity", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -36,7 +36,7 @@ export default function HomePage() {
 useEffect(() => {
   const visitorId = localStorage.getItem('visitorId');
   if (visitorId) {
-    const cleanup = setupSessionEndLogging(visitorId, "http://localhost:3000");
+    const cleanup = setupSessionEndLogging(visitorId, "http://localhost:3001");
     console.log("✅ Session logging activo para visitor:", visitorId);
     return () => cleanup();
   } else {
