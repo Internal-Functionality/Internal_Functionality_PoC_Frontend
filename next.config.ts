@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+// 👇 Indica exactamente dónde está tu archivo de configuración
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-export default nextConfig;
+export default withNextIntl({
+  reactStrictMode: true,
+  experimental: {
+    turbo: {
+      rules: {}, // evita warnings con Turbopack
+    },
+  },
+});
+
