@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 
 export default function RoleBottom() {
     const pathname = usePathname();
-    const isFixer = pathname === "/act-Fixer-hu6";
-    const isRequester = pathname === "/act-requesters-hu6";
+    const isFixer = pathname === "/es/act-Fixer-hu6" || pathname === "/en/act-Fixer-hu6";
+    const isRequester = pathname === "/es/act-requesters-hu6" || pathname === "/en/act-requesters-hu6"  ;
 
     return (
         <div className="flex">
@@ -19,6 +19,7 @@ export default function RoleBottom() {
                     : "hover:bg-blue-100 text-black"
                     }`}>
                     <Link href="/act-Fixer-hu6" className="block p-3 w-full"> Fixer </Link>
+
                 </div>
 
             {/* Botón Requester */}
@@ -33,4 +34,3 @@ export default function RoleBottom() {
     </div>
     );
 }
-//fix a problem with the link on RoleBottom component
