@@ -62,6 +62,9 @@ export default function App() {
     cercania: false,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState("usuario_anonimo");
+  const [userTypes, setUserTypes] = useState("visitor");
 
   const handleSearch = async (query: string) => {
     console.log("Búsqueda:", query);
@@ -71,9 +74,14 @@ export default function App() {
 
       try {
         // 1. Guardar la búsqueda en el backend
+        console.log("Estado actual del usuario:", {
+          userName,
+          userTypes,
+          isAuthenticated,
+        });
         const searchData: SearchRequest = {
-          userName: "usuario_anonimo", // Por ahora hardcodeado, se puede mejorar después
-          userTypes: "requester", // Tipo de usuario
+          userName: userName, // Usar el estado dinámico del usuario
+          userTypes: userTypes, // Usar el tipo de usuario dinámico
           search: query,
           typeOfService: selectedCategory || "0", // Si no hay categoría seleccionada, usar "0"
           scope: currentFilters.cercania ? 1 : 0, // 1 si está activado el filtro de cercanía, 0 si no
@@ -165,8 +173,42 @@ export default function App() {
     }
   };
 
+  // Función para generar nombres aleatorios
+  const generateRandomName = () => {
+    const nombres = [
+      "Cristian Montero",
+      "Ana García",
+      "Carlos López",
+      "María Rodríguez",
+      "José Martínez",
+      "Laura Sánchez",
+      "David González",
+      "Sofia Pérez",
+      "Miguel Torres",
+      "Elena Ruiz",
+      "Antonio Díaz",
+      "Carmen Flores",
+      "Francisco Herrera",
+      "Isabel Moreno",
+      "Manuel Jiménez",
+      "Rosa Aguilar",
+    ];
+    return nombres[Math.floor(Math.random() * nombres.length)];
+  };
+
   const handleAuthChange = (isAuthenticated: boolean) => {
     console.log("Estado de autenticación:", isAuthenticated);
+    setIsAuthenticated(isAuthenticated);
+
+    if (isAuthenticated) {
+      // Usuario registrado: nombre aleatorio y tipo requester
+      setUserName(generateRandomName());
+      setUserTypes("requester");
+    } else {
+      // Usuario no registrado: usuario anónimo y tipo visitor
+      setUserName("usuario_anonimo");
+      setUserTypes("visitor");
+    }
   };
 
   return (
