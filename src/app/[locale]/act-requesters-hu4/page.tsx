@@ -14,45 +14,6 @@ import {
   type User,
 } from "../../../service/searchService";
 
-// Datos mock de fixers para prueba
-const mockFixers: Fixer[] = [
-  {
-    id: "1",
-    name: "Juan Pérez",
-    rating: 4.8,
-    distance: 2.3,
-    category: "Instalaciones",
-  },
-  {
-    id: "2",
-    name: "María González",
-    rating: 4.9,
-    distance: 1.5,
-    category: "Limpieza",
-  },
-  {
-    id: "3",
-    name: "Carlos Ramírez",
-    rating: 4.6,
-    distance: 3.7,
-    category: "Reparaciones",
-  },
-  {
-    id: "4",
-    name: "Ana Martínez",
-    rating: 5.0,
-    distance: 0.8,
-    category: "Pintura",
-  },
-  {
-    id: "5",
-    name: "Luis Torres",
-    rating: 4.7,
-    distance: 4.2,
-    category: "Jardinería",
-  },
-];
-
 export default function App() {
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<Fixer[]>([]);
@@ -102,6 +63,8 @@ export default function App() {
           return;
         }
 
+        console.log("Estructura de un job:", jobsResponse.data[0]);
+
         // 3. Filtrar jobs por título que coincida con la búsqueda
         const filteredJobs = jobsResponse.data.filter((job: Job) =>
           job.title.toLowerCase().includes(query.toLowerCase())
@@ -126,7 +89,7 @@ export default function App() {
         const fixerResults: Fixer[] = filteredJobs.map((job: Job) => {
           // Buscar el user que corresponde al fixerId del job
           const fixerUser = usersResponse.data?.find(
-            (user: User) => user._id === job.fixerId
+            (user: User) => job.fixerId === user._id
           );
 
           return {
@@ -161,16 +124,10 @@ export default function App() {
   const handleCategorySelect = (categoryId: string | null) => {
     console.log("Categoría seleccionada:", categoryId);
     setSelectedCategory(categoryId);
-
-    if (categoryId) {
-      const filteredResults = mockFixers.filter(
-        (fixer) => fixer.category.toLowerCase() === categoryId.toLowerCase()
-      );
-      setResults(filteredResults);
-      setShowResults(true);
-    } else {
-      setShowResults(false);
-    }
+    // No mock filtering on category. We only record selection
+    // and wait for a real search to be performed.
+    setResults([]);
+    setShowResults(false);
   };
 
   // Función para generar nombres aleatorios
