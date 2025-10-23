@@ -1,4 +1,6 @@
 "use client";
+import { Roboto } from 'next/font/google'
+
 import { useState, useEffect } from "react";
 import FixerCard from "@/components/components-h6/FixerCard";
 import JobOffersBox from "@/components/components-h6/JobOffersBox";
@@ -6,6 +8,10 @@ import JobRegisterBox from "@/components/components-h6/JobRegisterBox";
 import ModalRequester from "@/components/components-h6/ModalRequester";
 import RoleBottom from "@/components/components-h6/RoleBottom";
 
+const roboto = Roboto({
+    weight: '300',
+    subsets: ['latin'],
+})
 interface OfferedJob {
     id: string;
     titulo: string;
@@ -197,34 +203,36 @@ export default function Page() {
     }
     return (
     <>
-        <div className="flex">  
-            <div className="max-w-2xl w-full p-6">
-                <FixerCard />
+        <section className={` ${roboto.className}`}>
+            <div className="flex">  
+                <div className="max-w-2xl w-full p-6">
+                    <FixerCard />
+                </div>
+            <div className="max-w-lg w-full mt-10 ml-15">
+                <RoleBottom />
             </div>
-        <div className="max-w-lg w-full mt-10 ml-15">
-            <RoleBottom />
-        </div>
-        </div>
+            </div>
 
-        <div className="flex space-x-9">
-            <div className="max-w-2xl w-full p-6">
-                <JobOffersBox onOpen={handleOpen} jobs={offeredJobs} />
+            <div className="flex space-x-9">
+                <div className="max-w-2xl w-full p-6">
+                    <JobOffersBox onOpen={handleOpen} jobs={offeredJobs} />
+                </div>
+                <div className="max-w-2xl w-full p-6">
+                    <JobRegisterBox onOpen={handleRealizedJobOpen} jobs={completedJobs}/>
+                </div>
+            <div className=" w-full">
+                {selectedJob && (
+                <ModalRequester
+                    isOpen={isOpen}
+                    onClose={() => setIsOpen(false)}
+                    titulo={selectedJob.titulo}
+                    text={selectedJob.descripcion}
+                />
+                )}
+                
             </div>
-            <div className="max-w-2xl w-full p-6">
-                <JobRegisterBox onOpen={handleRealizedJobOpen} jobs={completedJobs}/>
             </div>
-        <div className=" w-full">
-            {selectedJob && (
-            <ModalRequester
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-                titulo={selectedJob.titulo}
-                text={selectedJob.descripcion}
-            />
-            )}
-            
-        </div>
-        </div>
+        </section>
     </>
     );
 }
