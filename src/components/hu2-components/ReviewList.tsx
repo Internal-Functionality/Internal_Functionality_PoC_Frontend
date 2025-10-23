@@ -33,7 +33,7 @@ export const ReviewList = () => {
 ];
 
     return (
-        <div className='flex flex-col gap-0 bg-gray-100 w-full text-white  mx-auto p-5 rounded  '>
+        <div className='flex flex-col gap-5 bg-gray-100 w-full text-white  mx-auto p-5 rounded  '>
             {Reviews.map((review:ReviewProps)=><ReviewCard 
                 key={review.name}
                 name={review.name}
