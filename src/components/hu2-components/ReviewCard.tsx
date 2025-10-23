@@ -21,7 +21,7 @@ export const ReviewCard = ({name,service,review,rating}:Props) => {
                 className="rounded-full m-auto  "
                 />
                 <div className="flex-1 w-full ">
-                    <h1 className='text-3xl font-black'>{name}</h1>
+                    <h1 className='text-3xl font-bold'>{name}</h1>
                     <h2 className='text-xl font-semibold text-amber-700 py-5'> {service}</h2>
                     <p className="text-xl text-justify">
                     {review}
