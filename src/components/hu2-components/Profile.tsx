@@ -6,7 +6,7 @@ export const Profile = () => {
     const t = useTranslations("profile");
     
         return (
-        <div className='flex gap-15 bg-blue-200 w-full  mx-auto p-10 rounded-4xl shadow-md '>
+        <div className='flex gap-15 bg-blue-400 w-full  mx-auto p-10 rounded-4xl shadow-md '>
             <div className="text-center space-y-5  w-[20%]">
                 <h2 className="text-3xl font-bold">{t("title")}</h2>
                 <Image 
