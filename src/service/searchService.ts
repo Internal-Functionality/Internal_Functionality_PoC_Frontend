@@ -4,6 +4,7 @@ export interface SearchRequest {
   search: string;
   typeOfService: string;
   scope: number;
+  searchFound: number;
 }
 
 export interface SearchResponse {
