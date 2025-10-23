@@ -27,11 +27,7 @@ export const NavBar = () => {
                             <IoHome size={70} className="m-4" />
                         </button>
                     </Link>
-                    <Link href={`/${locale}/i18n-hu2/profile`} className='block'>
-                        <button className="cursor-pointer">
-                            <CgProfile size={70} className="m-4" />
-                        </button>
-                    </Link>
+                    
                 </div>
 
                 {/* Botón de traducción */}
