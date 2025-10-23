@@ -35,7 +35,7 @@ export const NavBar = () => {
                         <IoHome size={70} className="m-4" />
                     </button>
                     </Link>
-                    <Link href="/i18n-hu1" className='block'>
+                    <Link href="/i18n-hu2" className='block'>
                     <button className="cursor-pointer">
                         <CgProfile size={70} className="m-4" />
                     </button>

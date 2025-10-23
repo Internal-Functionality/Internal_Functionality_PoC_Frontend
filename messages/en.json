@@ -11,6 +11,22 @@
   },
   "home": 
   {
+    "searchTitle": "Find the perfect professional",
+    "searchSubtitle": "Certified electricians and plumbers available in your area",
+    "searchPlaceholder": "Search for electrician, plumber or service...",
+    "searchButton": "Search",
+    "filterAll": "All",
+    "filterElectricians": "Electricians",
+    "filterPlumbers": "Plumbers",
+    "resultsTitle": "Available professionals",
+    "resultsFound": "We found {count} professionals for you",
+    "reviews": "reviews",
+    "perHour": "/hour",
+    "available": "Available",
+    "requestService": "view profile",
+    "electrician": "Electrician",
+    "plumber": "Plumber",
+    "locksmith": "Locksmith",
     "recentReviews": "Recent Reviews"
   },
   "reviewList": [

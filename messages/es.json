@@ -10,9 +10,25 @@
     "button6": "Registro de actividad de Requesters - Registrar búsqueda de servicios"
   },
   "home": 
-  {
-    "recentReviews": "Reseñas Recientes"
-  },
+{
+    "searchTitle": "Encuentra el profesional perfecto",
+    "searchSubtitle": "Electricistas y plomeros certificados disponibles en tu zona",
+    "searchPlaceholder": "Buscar electricista, plomero o servicio...",
+    "searchButton": "Buscar",
+    "filterAll": "Todos",
+    "filterElectricians": "Electricistas",
+    "filterPlumbers": "Plomeros",
+    "resultsTitle": "Profesionales disponibles",
+    "resultsFound": "Encontramos {count} profesionales para ti",
+    "reviews": "reseñas",
+    "perHour": "/hora",
+    "available": "Disponible",
+    "requestService": "Ver perfil",
+    "electrician": "Electricista",
+    "plumber": "Plomero",
+    "locksmith": "Cerrajero",
+    "recentReviews": "Recent Reviews"
+},
    "reviewList": [
     {
       "name": "Pedro Perez",
