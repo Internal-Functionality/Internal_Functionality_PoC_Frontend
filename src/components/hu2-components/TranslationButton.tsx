@@ -31,13 +31,13 @@ export const TranslationButton = () => {
                         onClick={() => handleLanguageChange('es')}
                                     className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md"
                                     >
-                                        🇪🇸 Español
+                                        es Español
                     </button>
                     <button
                         onClick={() => handleLanguageChange('en')}
                         className="block w-full text-left px-3 py-2 hover:bg-gray-100 rounded-md"
                     >
-                        🇬🇧 English
+                        en English
                     </button>
                 </div>
                 )}
