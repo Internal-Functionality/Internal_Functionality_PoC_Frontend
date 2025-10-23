@@ -1,5 +1,4 @@
 export interface FilterOptions {
-  calificacion: boolean;
   cercania: boolean;
 }
 

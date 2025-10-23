@@ -6,4 +6,5 @@ export interface Category {
 
 export interface CategoryGridProps {
   onCategorySelect?: (categoryId: string | null) => void;
+  resetSelection?: boolean;
 }
