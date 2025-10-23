@@ -1,9 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { Home, Zap, Wrench, Phone} from 'lucide-react';
+import { Home, Zap, Wrench, Phone } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export  function ProfessionalsList() {
+  const t = useTranslations('home');
   const [activeFilter, setActiveFilter] = useState('todos');
 
   const professionals = [
@@ -82,7 +84,7 @@ export  function ProfessionalsList() {
             }`}
           >
             <Home size={18} />
-            Todos
+            {t('filterAll')}
           </button>
           <button
             onClick={() => setActiveFilter('electricistas')}
@@ -93,7 +95,7 @@ export  function ProfessionalsList() {
             }`}
           >
             <Zap size={18} />
-            Electricistas
+            {t('filterElectricians')}
           </button>
           <button
             onClick={() => setActiveFilter('plomeros')}
@@ -104,14 +106,14 @@ export  function ProfessionalsList() {
             }`}
           >
             <Wrench size={18} />
-            Plomeros
+            {t('filterPlumbers')}
           </button>
         </div>
 
         {/* Título de resultados */}
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Profesionales disponibles</h2>
-          <p className="text-gray-600 mt-1">Encontramos {filteredProfessionals.length} profesionales para ti</p>
+          <h2 className="text-2xl font-bold text-gray-900">{t('resultsTitle')}</h2>
+          <p className="text-gray-600 mt-1">{t('resultsFound', { count: filteredProfessionals.length })}</p>
         </div>
 
         {/* Grid de profesionales */}
@@ -129,7 +131,7 @@ export  function ProfessionalsList() {
                   <div>
                     <h3 className="text-lg font-bold text-gray-900">{prof.name}</h3>
                     <p className="text-orange-600 text-sm font-medium">
-                      {prof.profession}{prof.specialty && ` - ${prof.specialty}`}
+                      {t(prof.profession === 'Electricista' ? 'electrician' : 'plumber')}{prof.specialty && ` - ${t('locksmith')}`}
                     </p>
                   </div>
                 </div>
@@ -137,7 +139,7 @@ export  function ProfessionalsList() {
                 {/* Badge disponible */}
                 {prof.available && (
                   <span className="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    Disponible
+                    {t('available')}
                   </span>
                 )}
               </div>
@@ -147,7 +149,7 @@ export  function ProfessionalsList() {
                 <div className="flex items-center gap-2">
                   <span className="text-yellow-500">⭐</span>
                   <span className="font-bold text-gray-900">{prof.rating}</span>
-                  <span className="text-gray-500 text-sm">({prof.reviews} reseñas)</span>
+                  <span className="text-gray-500 text-sm">({prof.reviews} {t('reviews')})</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600 text-sm">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,19 +162,19 @@ export  function ProfessionalsList() {
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  ${prof.price}/hora
+                  ${prof.price}{t('perHour')}
                 </div>
               </div>
 
               {/* Botones de acción */}
               <div className="flex gap-3">
-                
                 <Link 
-                  href={`/professional/${prof.id}`}
+                  href={`/i18n-hu2/profile/${prof.id}`}
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors text-center"
                 >
-                  Solicitar Servicio
+                  {t('requestService')}
                 </Link>
+                
               </div>
             </div>
           ))}

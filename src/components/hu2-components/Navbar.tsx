@@ -22,12 +22,12 @@ export const NavBar = () => {
 
                 {/* Contenedor central */}
                 <div className="flex flex-col items-center justify-center flex-grow gap-10">
-                    <Link href={`/${locale}/i18n-hu2/home`} className='block'>
+                    <Link href={`/${locale}/i18n-hu2`} className='block'>
                         <button className="cursor-pointer">
                             <IoHome size={70} className="m-4" />
                         </button>
                     </Link>
-                    <Link href={`/${locale}/i18n-hu2`} className='block'>
+                    <Link href={`/${locale}/i18n-hu2/profile`} className='block'>
                         <button className="cursor-pointer">
                             <CgProfile size={70} className="m-4" />
                         </button>
