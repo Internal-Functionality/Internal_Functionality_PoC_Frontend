@@ -17,8 +17,8 @@ const AppointmentsList: React.FC<AppointmentsListProps> = ({ appointments, onCan
             className="flex justify-between items-center p-4 border-b border-gray-200 last:border-b-0"
           >
             <div>
-              <p className="font-bold text-gray-800">{new Date(appointment.date).toLocaleString()}</p>
-              <p className="text-sm text-gray-600">{appointment.clientName} - {appointment.service}</p>
+              <p className="font-bold text-gray-800">{appointment.requesterId?.name || 'Sin nombre'} - {appointment.jobId?.title || 'Sin servicio'}</p>
+              <p className="text-sm text-gray-700">{new Date(appointment.date).toLocaleString()}</p>
             </div>
             <button
               onClick={() => onCancel(appointment._id)}

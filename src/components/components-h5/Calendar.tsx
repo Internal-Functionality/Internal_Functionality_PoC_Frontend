@@ -9,7 +9,7 @@ const Calendar: React.FC = () => {
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-xl font-semibold text-gray-800">Octubre 2025</h3>
             </div>
-            <div className="grid grid-cols-7 gap-2 text-center font-bold text-gray-600">
+            <div className="grid grid-cols-7 gap-2 text-center font-bold text-gray-700">
                 {days.map((day, index) => <div key={index}>{day}</div>)}
             </div>
             <div className="grid grid-cols-7 gap-2 text-center text-gray-700">
