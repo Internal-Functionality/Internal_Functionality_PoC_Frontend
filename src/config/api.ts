@@ -3,5 +3,7 @@ export const API_CONFIG = {
   ENDPOINTS: {
     JOBS: '/jobs',
     ACTIVITIES: '/activities',
+    VISITORS: '/visitor',
+    ACTIVITY: '/activity'
   }
 };
