@@ -15,7 +15,7 @@ export default function RoleBottom() {
             {/* Botón Fixer */}
                 <div className={`w-full rounded-xl shadow-md border border-black transition-all duration-200 ${
                     isFixer
-                    ? "bg-blue-300 text-white"
+                    ? "bg-[#759AE0] text-white"
                     : "hover:bg-blue-100 text-black"
                     }`}>
                     <Link href="/act-Fixer-hu6" className="block p-3 w-full"> Fixer </Link>
@@ -25,7 +25,7 @@ export default function RoleBottom() {
             {/* Botón Requester */}
             <div className={`w-full rounded-xl shadow-md border border-black transition-all duration-200 ${
                 isRequester
-                ? "bg-blue-300 text-white"
+                ? "bg-[#759AE0] text-white"
                 : "hover:bg-blue-100 text-black"
                 }`}>
                 <Link href="/act-requesters-hu6" className="block p-3 w-full"> Requester </Link>

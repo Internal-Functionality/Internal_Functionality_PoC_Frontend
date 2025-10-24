@@ -1,6 +1,5 @@
 "use client";
-import { Roboto } from 'next/font/google'
-
+import { Roboto } from 'next/font/google';
 import { useState, useEffect } from "react";
 import FixerCard from "@/components/components-h6/FixerCard";
 import JobOffersBox from "@/components/components-h6/JobOffersBox";
