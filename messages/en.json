@@ -2,6 +2,7 @@
   "menu": 
   {
     "title": "Internal Functionality PoC",
+    "description":"Proof of Concept showcasing core internal features and capabilities",
     "button1": "i18n - Automatic detection of browser language",
     "button2": "i18n - Manual language change",
     "button3": "Register visitors activity",

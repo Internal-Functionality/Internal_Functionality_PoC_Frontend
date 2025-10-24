@@ -22,7 +22,7 @@ export const Profile = ({professionalData}:MainLayoutProps) => {
 
     const t = useTranslations("profile");
         return (
-        <div className='flex gap-15 bg-blue-500 text-white w-[95%]  mx-auto p-10 rounded-3xl hover:shadow-md transition-shadow '>
+        <div className='flex gap-15 bg-[#2B6AE0] text-white w-[95%]  mx-auto p-10 rounded-3xl hover:shadow-md transition-shadow '>
             <div className="text-center space-y-5  w-[20%]">
                 <h2 className="text-3xl font-bold">{t("title")}</h2>
                 <Image 

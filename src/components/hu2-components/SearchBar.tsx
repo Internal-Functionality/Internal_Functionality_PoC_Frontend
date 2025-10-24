@@ -19,7 +19,7 @@ export function SearchBar() {
   };
 
   return (
-    <div className="bg-blue-500 px-50 py-12  min-w-max m-4 rounded-lg">
+    <div className="bg-[#2B6AE0] px-50 py-12  min-w-max m-4 rounded-lg">
       {/* Título principal */}
       <h1 className="text-white text-6xl font-bold mb-3">
         {t('searchTitle')}
@@ -48,7 +48,7 @@ export function SearchBar() {
         
         <button
           onClick={handleSearch}
-          className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200 whitespace-nowrap"
+          className="bg-[#5E2BE0] hover:bg-purple-600 text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200 whitespace-nowrap"
         >
           {t('searchButton')}
         </button>
