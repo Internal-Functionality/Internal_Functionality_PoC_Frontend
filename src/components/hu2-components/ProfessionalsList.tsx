@@ -138,7 +138,7 @@ export  function ProfessionalsList() {
 
                 {/* Badge disponible */}
                 {prof.available && (
-                  <span className="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="bg-[#5E2BE0] text-white text-xs font-semibold px-3 py-1 rounded-full">
                     {t('available')}
                   </span>
                 )}

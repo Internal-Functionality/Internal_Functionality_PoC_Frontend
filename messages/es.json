@@ -2,6 +2,7 @@
 "menu": 
 {
     "title": "Funcionalidad Interna PoC", 
+    "description":"Prueba de concepto que muestra las principales características y capacidades internas",
     "button1": "i18n-Detección automática del idioma del navegador",
     "button2": "i18n-Cambio de idioma manualmente",
     "button3": "Registro de actividad de visitors",

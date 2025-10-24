@@ -15,14 +15,14 @@ export const NavBar = () => {
                 <div className="flex justify-center mt-6">
                     <Link href="/.." className='block'>
                         <button className="cursor-pointer">
-                            <IoArrowBack size={70} className="m-4" />
+                            <IoArrowBack size={70} className="m-4 hover:scale-105 transition-transform" />
                         </button>
                     </Link>
                 </div>
 
                 {/* Contenedor central */}
                 <div className="flex flex-col items-center justify-center flex-grow gap-10">
-                    <Link href={`/${locale}/i18n-hu2`} className='block'>
+                    <Link href={`/${locale}/i18n-hu2`} className='block hover:scale-105 transition-transform'>
                         <button className="cursor-pointer">
                             <IoHome size={70} className="m-4" />
                         </button>

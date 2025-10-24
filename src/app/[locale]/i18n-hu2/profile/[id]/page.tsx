@@ -1,6 +1,12 @@
 import {MainLayout} from '@/components/hu2-components/MainLayout'
 import { NavBar } from '@/components/hu2-components/Navbar'
 import React from 'react'
+import {Roboto} from 'next/font/google';
+
+const roboto = Roboto({ 
+    weight: '400',
+    subsets: ['latin'],
+})
 
 
 interface ProfessionalData {
@@ -71,15 +77,16 @@ const professionals = [
   }
 ];
 
-export default function ProfilePage({ params }: { params: { id: string } }) {
-  const professionalId = parseInt(params.id);
+export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const professionalId = parseInt(id);
   const professionalData = professionals.find(prof => prof.id === professionalId);
 
   // Si no se encuentra el profesional, mostrar error
   if (!professionalData) {
     return (
       <div className="flex ">
-        <div className="w-[10%] h-screen bg-blue-400 text-white sticky top-0 left-0">
+        <div className="w-[10%] h-screen bg-[#2B6AE0] text-white sticky top-0 left-0">
           <NavBar />
         </div>
         <div className="flex-1 flex items-center justify-center">
@@ -90,11 +97,13 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="flex ">
-      <div className="w-[10%] h-screen bg-blue-400 text-white sticky top-0 left-0">
-        <NavBar />
+    <section className={roboto.className}>
+      <div className="flex ">
+        <div className="w-[10%] h-screen bg-[#2B6AE0] text-white sticky top-0 left-0">
+          <NavBar />
+        </div>
+        <MainLayout professionalData={professionalData} />
       </div>
-      <MainLayout professionalData={professionalData} />
-    </div>
+    </section>
   )
 }
