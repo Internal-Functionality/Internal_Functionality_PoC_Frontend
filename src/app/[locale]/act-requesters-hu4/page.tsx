@@ -262,7 +262,7 @@ export default function App() {
           userTypes: userTypes,
           search: query,
           typeOfService: "buscador", // Usar "buscador" para búsquedas manuales
-          scope: currentFilters.cercania ? 1 : 0,
+          filters: currentFilters.cercania ? 1 : 0,
           searchFound: searchFound, // Número de resultados encontrados
         };
 
@@ -375,7 +375,7 @@ export default function App() {
           userTypes: userTypes,
           search: categoryName, // Nombre del icono/categoría
           typeOfService: "iconos de acceso rapido", // Tipo específico para iconos
-          scope: currentFilters.cercania ? 1 : 0,
+          filters: currentFilters.cercania ? 1 : 0,
           searchFound: searchFound, // Número de resultados mock encontrados
         };
 

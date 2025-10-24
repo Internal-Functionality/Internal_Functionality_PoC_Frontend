@@ -3,7 +3,7 @@ export interface SearchRequest {
   userTypes: string;
   search: string;
   typeOfService: string;
-  scope: number;
+  filters: number;
   searchFound: number;
 }
 
