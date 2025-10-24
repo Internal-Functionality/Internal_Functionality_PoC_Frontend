@@ -6,4 +6,5 @@ export interface SearchBarProps {
   onSearch?: (query: string) => void;
   onFilterChange?: (filters: FilterOptions) => void;
   placeholder?: string;
+  clearSearch?: boolean;
 }

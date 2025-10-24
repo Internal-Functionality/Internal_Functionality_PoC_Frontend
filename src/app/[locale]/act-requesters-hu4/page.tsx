@@ -25,10 +25,12 @@ export default function App() {
   const [results, setResults] = useState<Fixer[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [resetCategorySelection, setResetCategorySelection] = useState(false);
+  const [clearSearchBar, setClearSearchBar] = useState(false);
   const [currentFilters, setCurrentFilters] = useState<FilterOptions>({
     cercania: false,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isSearchInProgress, setIsSearchInProgress] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userName, setUserName] = useState("usuario_anonimo");
   const [userTypes, setUserTypes] = useState("visitor");
@@ -215,7 +217,14 @@ export default function App() {
   const handleSearch = async (query: string) => {
     console.log("Búsqueda:", query);
 
+    // Prevenir búsquedas duplicadas
+    if (isSearchInProgress) {
+      console.log("Búsqueda ya en progreso, ignorando...");
+      return;
+    }
+
     if (query.trim()) {
+      setIsSearchInProgress(true);
       setIsLoading(true);
 
       try {
@@ -306,6 +315,8 @@ export default function App() {
         setIsLoading(false);
         // Resetear el flag después de procesar la búsqueda
         setTimeout(() => setResetCategorySelection(false), 100);
+        // Deshabilitar búsquedas por 1 segundo para prevenir duplicados
+        setTimeout(() => setIsSearchInProgress(false), 1000);
       }
     } else {
       setShowResults(false);
@@ -321,10 +332,21 @@ export default function App() {
     console.log("Categoría seleccionada:", categoryId);
     setSelectedCategory(categoryId);
 
+    // Limpiar el SearchBar cuando se selecciona una categoría
+    setClearSearchBar(true);
+    setTimeout(() => setClearSearchBar(false), 100);
+
+    // Prevenir búsquedas duplicadas
+    if (isSearchInProgress) {
+      console.log("Búsqueda ya en progreso, ignorando...");
+      return;
+    }
+
     if (
       categoryId &&
       mockDataByCategory[categoryId as keyof typeof mockDataByCategory]
     ) {
+      setIsSearchInProgress(true);
       setIsLoading(true);
 
       try {
@@ -379,6 +401,8 @@ export default function App() {
         setShowResults(false);
       } finally {
         setIsLoading(false);
+        // Deshabilitar búsquedas por 1 segundo para prevenir duplicados
+        setTimeout(() => setIsSearchInProgress(false), 1000);
       }
     } else {
       // Si no hay categoría seleccionada, limpiar resultados
@@ -449,6 +473,7 @@ export default function App() {
               onSearch={handleSearch}
               onFilterChange={handleFilterChange}
               placeholder="Buscar servicios..."
+              clearSearch={clearSearchBar}
             />
             {isLoading && (
               <div className="text-center mt-4">

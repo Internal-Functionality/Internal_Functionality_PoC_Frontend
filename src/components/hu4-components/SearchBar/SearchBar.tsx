@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import type { SearchBarProps, FilterOptions } from "./SearchBar.types";
 
@@ -8,12 +8,20 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onSearch,
   onFilterChange,
   placeholder = "Buscar servicios...",
+  clearSearch = false,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<FilterOptions>({
     cercania: false,
   });
+
+  // Efecto para limpiar el texto cuando se selecciona una categoría
+  useEffect(() => {
+    if (clearSearch) {
+      setSearchQuery("");
+    }
+  }, [clearSearch]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
