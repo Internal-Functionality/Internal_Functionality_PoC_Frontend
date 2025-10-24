@@ -1,6 +1,5 @@
 "use client";
-import { Roboto } from 'next/font/google'
-
+import { Roboto } from 'next/font/google';
 import { useState, useEffect } from "react";
 import FixerCard from "@/components/components-h6/FixerCard";
 import JobOffersBox from "@/components/components-h6/JobOffersBox";
@@ -107,13 +106,6 @@ export default function Page() {
         }
     }
 
-    function isJobAlreadyRegistered(jobTitle: string): boolean {
-        return registeredJobs.some(activity => 
-            activity.userId === persona.id && 
-            activity.metadata?.jobTitle?.toLowerCase().trim() === jobTitle.toLowerCase().trim()
-        );
-    }
-
     useEffect(() => {
         fetchOfferedJobs();
         fetchCompletedJobs();
@@ -124,10 +116,6 @@ export default function Page() {
         const job = offeredJobs.find(j => j.id === jobId);
         if (!job) {
             console.error("Job not found");
-            return;
-        }
-
-        if (isJobAlreadyRegistered(job.titulo)) {
             return;
         }
 
@@ -159,10 +147,6 @@ export default function Page() {
         }
     }
     async function handleRealizedJobClick(jobTitle: string) {
-        if (isJobAlreadyRegistered(jobTitle)) {
-            return;
-        }
-
         const activityData = {
             userId: persona.id,
             date: new Date().toISOString(),
