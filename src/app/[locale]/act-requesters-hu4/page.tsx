@@ -1,5 +1,6 @@
 "use client";
 
+import { Roboto } from "next/font/google";
 import { useState } from "react";
 import LoginButton from "../../../components/hu4-components/LoginButton";
 import SearchBar from "../../../components/hu4-components/SearchBar/SearchBar";
@@ -13,6 +14,11 @@ import {
   type Job,
   type User,
 } from "../../../service/searchService";
+
+const roboto = Roboto({
+  weight: "300",
+  subsets: ["latin"],
+});
 
 export default function App() {
   const [showResults, setShowResults] = useState(false);
@@ -420,48 +426,50 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" suppressHydrationWarning>
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-8 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900">SERVINEO</h1>
-          <LoginButton onAuthChange={handleAuthChange} />
-        </div>
-      </header>
+    <section className={roboto.className}>
+      <div className="min-h-screen bg-gray-50" suppressHydrationWarning>
+        {/* Header */}
+        <header className="bg-white border-b border-gray-200 px-8 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-gray-900">SERVINEO</h1>
+            <LoginButton onAuthChange={handleAuthChange} />
+          </div>
+        </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-8 py-12">
-        {/* Title */}
-        <h2 className="text-4xl font-bold text-gray-900 text-center mb-12">
-          BUSCA UN SERVICIO
-        </h2>
+        {/* Main Content */}
+        <main className="container mx-auto px-8 py-12">
+          {/* Title */}
+          <h2 className="text-4xl font-bold text-gray-900 text-center mb-12">
+            BUSCA UN SERVICIO
+          </h2>
 
-        {/* Search Bar */}
-        <div className="max-w-3xl mx-auto">
-          <SearchBar
-            onSearch={handleSearch}
-            onFilterChange={handleFilterChange}
-            placeholder="Buscar servicios..."
-          />
-          {isLoading && (
-            <div className="text-center mt-4">
-              <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-700 mr-2"></div>
-                Buscando servicios...
+          {/* Search Bar */}
+          <div className="max-w-3xl mx-auto">
+            <SearchBar
+              onSearch={handleSearch}
+              onFilterChange={handleFilterChange}
+              placeholder="Buscar servicios..."
+            />
+            {isLoading && (
+              <div className="text-center mt-4">
+                <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-700 mr-2"></div>
+                  Buscando servicios...
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
 
-        {/* Category Grid */}
-        <CategoryGrid
-          onCategorySelect={handleCategorySelect}
-          resetSelection={resetCategorySelection}
-        />
+          {/* Category Grid */}
+          <CategoryGrid
+            onCategorySelect={handleCategorySelect}
+            resetSelection={resetCategorySelection}
+          />
 
-        {/* Search Results */}
-        <SearchResults results={results} isVisible={showResults} />
-      </main>
-    </div>
+          {/* Search Results */}
+          <SearchResults results={results} isVisible={showResults} />
+        </main>
+      </div>
+    </section>
   );
 }
