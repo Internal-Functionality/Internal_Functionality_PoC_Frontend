@@ -6,7 +6,7 @@ export default function FixerCard(){
             Editar
         </button>
         {/* flex-item, Caja contenedora de la foto de perfil del fizer*/}
-            <div className="w-32 h-32 bg-blue-300 rounded-full flex items-center justify-center text-white font-bold text-3xl"> 
+            <div className="w-32 h-32 bg-[#759AE0] rounded-full flex items-center justify-center text-white font-bold text-3xl"> 
             FP
             </div>
         {/* Flex-item, Caja contenedora de la informacion del fizer*/}

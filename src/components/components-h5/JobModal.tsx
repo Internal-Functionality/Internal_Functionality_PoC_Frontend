@@ -26,7 +26,7 @@ const JobModal: React.FC<JobModalProps> = ({ job, isOpen, onClose }) => {
         <div className="space-y-4">
           <div>
             <h3 className="font-semibold text-gray-700 mb-2">Descripción:</h3>
-            <p className="text-gray-600">{job.description}</p>
+            <p className="text-gray-700">{job.description}</p>
           </div>
           
           <div>
@@ -50,13 +50,13 @@ const JobModal: React.FC<JobModalProps> = ({ job, isOpen, onClose }) => {
           
           <div>
             <h3 className="font-semibold text-gray-700 mb-2">Fecha de creación:</h3>
-            <p className="text-gray-600">{new Date(job.createdAt).toLocaleDateString()}</p>
+            <p className="text-gray-700">{new Date(job.createdAt).toLocaleDateString()}</p>
           </div>
           
           {job.updatedAt && job.updatedAt !== job.createdAt && (
             <div>
               <h3 className="font-semibold text-gray-700 mb-2">Última actualización:</h3>
-              <p className="text-gray-600">{new Date(job.updatedAt).toLocaleDateString()}</p>
+              <p className="text-gray-700">{new Date(job.updatedAt).toLocaleDateString()}</p>
             </div>
           )}
         </div>

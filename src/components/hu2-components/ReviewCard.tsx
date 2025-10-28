@@ -12,7 +12,7 @@ interface Props {
 
 export const ReviewCard = ({name,service,review,rating}:Props) => {
     return (
-        <div className='flex gap-15 bg-blue-200 w-full  mx-auto p-5 border-2 border-gray-200 rounded-2xl  '>
+        <div className='flex gap-15 bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow text-black  '>
                 <Image 
                 src={userImage}
                 alt="User"
@@ -20,8 +20,8 @@ export const ReviewCard = ({name,service,review,rating}:Props) => {
                 height={100}
                 className="rounded-full m-auto  "
                 />
-                <div className="flex-1 w-full">
-                    <h1 className='text-3xl font-black'>{name}</h1>
+                <div className="flex-1 w-full ">
+                    <h1 className='text-3xl font-bold'>{name}</h1>
                     <h2 className='text-xl font-semibold text-amber-700 py-5'> {service}</h2>
                     <p className="text-xl text-justify">
                     {review}

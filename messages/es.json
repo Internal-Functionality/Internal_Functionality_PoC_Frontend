@@ -2,6 +2,7 @@
 "menu": 
 {
     "title": "Funcionalidad Interna PoC", 
+    "description":"Prueba de concepto que muestra las principales características y capacidades internas",
     "button1": "i18n-Detección automática del idioma del navegador",
     "button2": "i18n-Cambio de idioma manualmente",
     "button3": "Registro de actividad de visitors",
@@ -10,9 +11,25 @@
     "button6": "Registro de actividad de Requesters - Registrar búsqueda de servicios"
   },
   "home": 
-  {
-    "recentReviews": "Reseñas Recientes"
-  },
+{
+    "searchTitle": "Encuentra el profesional perfecto",
+    "searchSubtitle": "Electricistas y plomeros certificados disponibles en tu zona",
+    "searchPlaceholder": "Buscar electricista, plomero o servicio...",
+    "searchButton": "Buscar",
+    "filterAll": "Todos",
+    "filterElectricians": "Electricistas",
+    "filterPlumbers": "Plomeros",
+    "resultsTitle": "Profesionales disponibles",
+    "resultsFound": "Encontramos {count} profesionales para ti",
+    "reviews": "reseñas",
+    "perHour": "/hora",
+    "available": "Disponible",
+    "requestService": "Ver perfil",
+    "electrician": "Electricista",
+    "plumber": "Plomero",
+    "locksmith": "Cerrajero",
+    "recentReviews": "Recent Reviews"
+},
    "reviewList": [
     {
       "name": "Pedro Perez",

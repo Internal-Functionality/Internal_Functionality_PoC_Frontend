@@ -2,32 +2,67 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './stylesLogin.module.css'
+import { API_CONFIG } from '@/config/api';
 
 export default function LoginPage() {
+  const LS_KEY = "visitorId";
   const router = useRouter();
 
   const handleVisitorLogin = async () => {
-    try {
-      const res = await fetch("http://localhost:3001/api/visitor", {
+
+    const isValidObjectId = (id: string) => typeof id === "string" && /^[a-f\d]{24}$/i.test(id);
+
+    const createVisitor = async () => {
+      const res = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.VISITORS}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ language: "es" }),
       });
 
-      if (!res.ok) throw new Error("Error al registrar visitor");
+      if (!res.ok) throw new Error("Error al registrar visitor (POST)");
 
       const data = await res.json();
-      console.log("Visitor registrado:", data);
+      if (!data || !data.userId || !isValidObjectId(data.userId)) {
+        throw new Error("Respuesta inválida al crear visitor");
+      }
+      return data.userId;
+    };
 
-      // Guarda el ID devuelto por el backend (MongoDB)
-      localStorage.setItem("visitorId", data.userId);
+    const verifyVisitor = async (id: string) => {
+      try {
+        const res = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.VISITORS}/${id}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (!res.ok) return false;
+        const user = await res.json();
+        if (user && user.role === "visitor") return true;
+        return !!user;
+      } catch (e) {
+        console.warn("No se pudo verificar visitorId en backend:", e);
+        return null;
+      }
+    };
+    try {
+      const localId = localStorage.getItem(LS_KEY);
+      if (localId && isValidObjectId(localId)) {
+        const verified = await verifyVisitor(localId);
+        if (verified === true) {
+          router.push("/act-visitors-demo/home");
+          return;
+        }
+        console.log("visitorId local no encontrado en DB, se creará uno nuevo.");
+      }
 
-      // Redirige solo si se registró correctamente
+      const newId = await createVisitor();
+
+      localStorage.setItem(LS_KEY, newId);
+
       router.push("/act-visitors-demo/home");
 
     } catch (err) {
-      console.error("Error conectando al backend:", err);
-      alert("❌ No se pudo registrar el visitante. Verifica la conexión con el backend.");
+      console.error("Error en handleVisitorLogin:", err);
+      alert("No se pudo registrar el visitante. Verifica la conexión con el backend.");
     }
   };
 

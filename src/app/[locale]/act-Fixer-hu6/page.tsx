@@ -1,4 +1,5 @@
 "use client";
+import { Roboto } from 'next/font/google'
 import { useState, useEffect } from "react";
 import FixerCardEditable from "@/components/components-h6/FixerCardEditable";
 import JobOffersBox from "@/components/components-h6/JobOffersBox";
@@ -8,6 +9,10 @@ import RoleBottom from "@/components/components-h6/RoleBottom";
 import ModalView from "@/components/components-h6/ModalView";
 import ViewBottom from "@/components/components-h6/ViewBottom";
 
+const roboto = Roboto({
+    weight: '300',
+    subsets: ['latin'],
+})
 interface OfferedJob {
     id: string;
     titulo: string;
@@ -185,51 +190,46 @@ export default function Page() {
     };
     return (
     <>
-        <div className="flex">
-            <div className="max-w-2xl w-full p-6">
-                <FixerCardEditable />
+        <section className={` ${roboto.className}`}>
+            <div className="flex ${roboto.className}">
+                <div className="max-w-2xl w-full p-6">
+                    <FixerCardEditable />
+                </div>
+                <div className="max-w-lg w-full mt-10 ml-15">
+                    <RoleBottom />
+                </div>
             </div>
-            <div className="max-w-lg w-full mt-10 ml-15">
-                <RoleBottom />
+            <div className="px-6">
+                <button className="cursor-pointer bg-blue-300 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded-lg shadow-md">
+                + Publicar Oferta de Trabajo
+                </button>
             </div>
-        </div>
 
-      {/* Botón de publicar */}
-        <div className="px-6">
-            <button className="cursor-pointer bg-blue-300 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded-lg shadow-md">
-            + Publicar Oferta de Trabajo
-            </button>
-        </div>
-
-        <div className="flex space-x-9">
-        {/* Trabajos ofertados */}
-        <div className="max-w-2xl w-full p-6 ">
-            <JobOffersBox onOpen={handleOpenModal} jobs={offeredJobs} />
-        </div>
-
-        {/* Trabajos realizados */}
-        <div className="max-w-2xl w-full p-6 relative">
-            <JobRegisterBox onOpen={handleOpenModalR} jobs={completedJobs} />
-            <ViewBottom onOpenView={handleOpenModalViews} views={[{ titulo: "Vistas en trabajos", descripcion: `Total: ${completedJobs.length}` }]} />
-        </div>
-
-        {/* Modal */}
-        {selectedJob && (
-            <ModalRequester
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            titulo={selectedJob.titulo}
-            text={selectedJob.descripcion} />
-        )}
-        {selectedView && (
-            <ModalView
-            isOpenView={isOpenView}
-            titulo={selectedView.titulo}
-            text={selectedView.descripcion}
-            onCloseView={() => setIsOpenView(false)}
-            />
-)}
-        </div>
+            <div className="flex space-x-9">
+            <div className="max-w-2xl w-full p-6 ">
+                <JobOffersBox onOpen={handleOpenModal} jobs={offeredJobs} />
+            </div>
+            <div className="max-w-2xl w-full p-6 relative">
+                <JobRegisterBox onOpen={handleOpenModalR} jobs={completedJobs} />
+                <ViewBottom onOpenView={handleOpenModalViews} views={[{ titulo: "Vistas en trabajos", descripcion: `Total: ${completedJobs.length}` }]} />
+            </div>
+            {selectedJob && (
+                <ModalRequester
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                titulo={selectedJob.titulo}
+                text={selectedJob.descripcion} />
+            )}
+            {selectedView && (
+                <ModalView
+                isOpenView={isOpenView}
+                titulo={selectedView.titulo}
+                text={selectedView.descripcion}
+                onCloseView={() => setIsOpenView(false)}
+                />
+            )}
+            </div>
+        </section>
     </>
     );
 }

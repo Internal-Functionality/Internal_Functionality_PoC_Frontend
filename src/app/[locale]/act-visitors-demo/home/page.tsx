@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { setupSessionEndLogging } from './utils/sessionActivity' // ajusta la ruta según tu proyecto
+import { setupSessionEndLogging } from './utils/sessionActivity'
 import styles from './stylesHome.module.css'
+import { API_CONFIG } from '@/config/api';
 
 export default function HomePage() {
   const [searchFixer, setSearchFixer] = useState('')
@@ -20,7 +21,7 @@ export default function HomePage() {
     console.log('Telemetry Event:', data);
 
     try {
-      const res = await fetch("http://localhost:3001/api/activity", {
+      const res = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.ACTIVITY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -36,11 +37,10 @@ export default function HomePage() {
 useEffect(() => {
   const visitorId = localStorage.getItem('visitorId');
   if (visitorId) {
-    const cleanup = setupSessionEndLogging(visitorId, "http://localhost:3001");
-    console.log("✅ Session logging activo para visitor:", visitorId);
+    const cleanup = setupSessionEndLogging(visitorId, `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.ACTIVITY}`);
     return () => cleanup();
   } else {
-    console.warn("⚠️ No se encontró visitorId en localStorage");
+    console.warn("No se encontró visitorId en localStorage");
   }
 }, []);
 

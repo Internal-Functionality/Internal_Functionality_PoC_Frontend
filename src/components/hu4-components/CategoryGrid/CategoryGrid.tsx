@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Wrench,
   Hammer,
@@ -22,8 +22,18 @@ const categories: Category[] = [
   { id: "pintura", name: "Pintura", icon: "paintbrush" },
 ];
 
-const CategoryGrid: React.FC<CategoryGridProps> = ({ onCategorySelect }) => {
+const CategoryGrid: React.FC<CategoryGridProps> = ({
+  onCategorySelect,
+  resetSelection,
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // Efecto para resetear la selección cuando se hace una búsqueda manual
+  useEffect(() => {
+    if (resetSelection) {
+      setSelectedCategory(null);
+    }
+  }, [resetSelection]);
 
   const handleCategoryClick = (categoryId: string) => {
     // Si se hace clic en la categoría ya seleccionada, la deseleccionamos
